@@ -5,13 +5,13 @@ import javafx.stage.Stage;
 import com.arthsetu.Models.Model;
 
 public class ArthsetuApplication extends Application {
-	@Override
-	public void start(Stage stage) {
-		Model.getInstance().getViewFactory().showLoginWindow();
-	}
+    @Override
+    public void start(Stage stage) {
+        Model.getInstance().getViewFactory().showLoginWindow();
+    }
 
-	public static void main(String[] args) {
-		launch();
-	}
+    public static void main(String[] args) {
+        launch();
+    }
 
 }
