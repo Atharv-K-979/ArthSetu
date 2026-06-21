@@ -8,7 +8,6 @@ module com.arthsetu {
     requires eu.hansolo.tilesfx;
     requires de.jensd.fx.glyphs.fontawesome;
     requires org.xerial.sqlitejdbc;
-    requires spring.boot.autoconfigure;
 
     opens com.arthsetu to javafx.fxml;
     opens com.arthsetu.Controllers to javafx.fxml;
