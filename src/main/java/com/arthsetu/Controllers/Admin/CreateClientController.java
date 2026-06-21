@@ -47,6 +47,21 @@ public class CreateClientController implements Initializable {
     }
 
     public void createClient() {
+        if (firstNameField.getText().isEmpty() || surnameField.getText().isEmpty() || passwordField.getText().isEmpty()) {
+            errorLbl.setStyle("-fx-text-fill:red;");
+            errorLbl.setText("Please fill First Name, Surname, and Password.");
+            return;
+        }
+
+        if (payeeAddress == null || payeeAddress.isEmpty()) {
+            payeeAddress = createPayeeAddress();
+            if (payeeAddress.isEmpty()) {
+                errorLbl.setStyle("-fx-text-fill:red;");
+                errorLbl.setText("Failed to generate payee address.");
+                return;
+            }
+        }
+
         if (createCheckingAccountFlag) {
             createAccount("checking");
         }
@@ -60,7 +75,7 @@ public class CreateClientController implements Initializable {
         Client client = new Client(firstName, lastName, payeeAddress, Model.getInstance().getCheckingAccount(payeeAddress), Model.getInstance().getCheckingAccount(payeeAddress), LocalDate.now());
         Model.getInstance().getDatabaseDriver().createClient(client, password);
         errorLbl.setStyle("-fx-text-fill:blue;");
-        errorLbl.setText("Saved succesfully");
+        errorLbl.setText("Saved successfully");
         emptyFields();
 
     }
@@ -68,27 +83,38 @@ public class CreateClientController implements Initializable {
 
     private void createAccount(String accountType) {
 
-        double balance = Double.parseDouble(checkingAccountBalanceField.getText());
         payeeAddress=createPayeeAddress();
         String firstSection = "3201";
         String lastSection = Integer.toString((new Random().nextInt(8999)) + 1000);
         String accountNumber = firstSection + lastSection;
         if (accountType.equals("checking")) {
-            Model.getInstance().getDatabaseDriver().createCheckingAccount(payeeAddress, accountNumber, 10, Double.parseDouble(checkingAccountBalanceField.getText()));
+            double balance = checkingAccountBalanceField.getText().isEmpty() ? 0.0 : Double.parseDouble(checkingAccountBalanceField.getText());
+            Model.getInstance().getDatabaseDriver().createCheckingAccount(payeeAddress, accountNumber, 10, balance);
         } else {
-            Model.getInstance().getDatabaseDriver().createSavingsAccount(payeeAddress, accountNumber, 10000, Double.parseDouble(checkingAccountBalanceField.getText()));
+            double balance = savingsAccountBalanceField.getText().isEmpty() ? 0.0 : Double.parseDouble(savingsAccountBalanceField.getText());
+            Model.getInstance().getDatabaseDriver().createSavingsAccount(payeeAddress, accountNumber, 10000, balance);
         }
 
     }
 
     private void onCreatePayeeAddress() {
-        if (firstNameField.getText() != null && surnameField.getText() != null) {
+        if (firstNameField.getText() != null && !firstNameField.getText().isEmpty() &&
+            surnameField.getText() != null && !surnameField.getText().isEmpty()) {
             payeeAddress=createPayeeAddress();
             payeeAddressLbl.setText(payeeAddress);
+            errorLbl.setText("");
+        } else {
+            errorLbl.setStyle("-fx-text-fill:red;");
+            errorLbl.setText("Please fill First Name and Surname first.");
+            payeeAddressCheckBox.setSelected(false);
         }
     }
 
     private String createPayeeAddress() {
+        if (firstNameField.getText() == null || firstNameField.getText().isEmpty() ||
+            surnameField.getText() == null || surnameField.getText().isEmpty()) {
+            return "";
+        }
         int id = Model.getInstance().getDatabaseDriver().getLastClientId() + 1;
         char c = Character.toLowerCase((firstNameField.getText().charAt(0)));
         return "@" + c + id + surnameField.getText();
