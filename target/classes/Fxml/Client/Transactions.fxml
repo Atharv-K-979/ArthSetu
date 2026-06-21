@@ -5,12 +5,12 @@
 <?import javafx.scene.text.Text?>
 
 
-<AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="transactions_container"
+<AnchorPane prefHeight="750.0" prefWidth="910.0" styleClass="transactions_container"
             stylesheets="@../../Styles/transactions.css" xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.arthsetu.Controllers.Client.TransactionsController">
    <Text layoutX="74.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="transaction_container"
-         text="Transactions" AnchorPane.leftAnchor="355.0" AnchorPane.topAnchor="14.0"/>
-   <ListView fx:id="transactionsListView" layoutX="358.0" layoutY="198.0" prefHeight="640.0" prefWidth="830.0"
+         text="Transactions" AnchorPane.leftAnchor="385.0" AnchorPane.topAnchor="14.0"/>
+   <ListView fx:id="transactionsListView" layoutX="358.0" layoutY="198.0" prefHeight="640.0" prefWidth="890.0"
              AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="84.0"/>
 </AnchorPane>

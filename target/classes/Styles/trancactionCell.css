@@ -27,7 +27,7 @@
 -fx-padding:5;
 -fx-font-weight:700;
 -fx-background-radius:2;
--fx-background-color:#132A13;
+-fx-background-color:#1E3A8A;
 }
 .transaction_amount_lbl FontAwesomeIconView{
 -fx-fill:#FFFFFF;
@@ -36,5 +36,5 @@
 -fx-background-color:#FFFFFF;
 }
 .message_btn FontAwesomeIconView{
--fx-fill:#132A13;
+-fx-fill:#1E3A8A;
 }

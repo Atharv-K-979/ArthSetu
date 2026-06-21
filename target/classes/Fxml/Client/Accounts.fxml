@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="accounts_view_container" stylesheets="@../../Styles/accountsClient.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.arthsetu.Controllers.Client.AccountsController">
+<AnchorPane prefHeight="750.0" prefWidth="910.0" styleClass="accounts_view_container" stylesheets="@../../Styles/accountsClient.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.arthsetu.Controllers.Client.AccountsController">
    <children>
       <Text layoutX="41.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Checking Account" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
       <VBox layoutX="43.0" layoutY="55.0" prefHeight="300.0" prefWidth="450.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="40.0">
