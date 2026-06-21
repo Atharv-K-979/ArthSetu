@@ -221,7 +221,11 @@ public class DatabaseDriver {
      */
 
     public void updateSavingsAccountBalance(String payeeAddress, double amount) {
-        double newBalance = getSavingsAccountData(payeeAddress).balanceProperty().get() + amount;
+        SavingsAccount savingsAccount = getSavingsAccountData(payeeAddress);
+        if (savingsAccount == null) {
+            return;
+        }
+        double newBalance = savingsAccount.balanceProperty().get() + amount;
         try {
             String query = "UPDATE SavingsAccounts SET Balance=? WHERE Owner=?;";
 
@@ -235,7 +239,11 @@ public class DatabaseDriver {
     }
 
     public void updateCheckingAccountBalance(String payeeAddress, double amount) {
-        double newBalance = getCheckingAccountData(payeeAddress).balanceProperty().get() + amount;
+        CheckingAccount checkingAccount = getCheckingAccountData(payeeAddress);
+        if (checkingAccount == null) {
+            return;
+        }
+        double newBalance = checkingAccount.balanceProperty().get() + amount;
         try {
             String query = "UPDATE CheckingAccounts SET Balance=? WHERE Owner=?;";
 

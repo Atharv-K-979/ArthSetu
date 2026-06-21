@@ -87,13 +87,15 @@ public class DashBoardController implements Initializable {
     private void performTransaction() {
         if (checkIfLegal()) {
             double amount = Double.parseDouble(payee_money.getText());
-            String receiver = payee_address.getText();
+            String inputAddress = payee_address.getText().trim();
+            Client receiverClient = Model.getInstance().searchClient(inputAddress).get(0);
+            String receiver = receiverClient.clientIDProperty().get();
             Transaction transaction = new Transaction(Model.getInstance().getClient().clientIDProperty().get(), receiver, amount, LocalDate.now(), payee_message.getText());
             Model.getInstance().addTransaction(transaction);
             Model.getInstance().getDatabaseDriver().updateCheckingAccountBalance(receiver, amount);
             Model.getInstance().getDatabaseDriver().updateCheckingAccountBalance(Model.getInstance().getClient().clientIDProperty().get(), -1 * amount);
             emptyTextFields();
-            payee_message.setText("$" + amount + "send succesfully to " + receiver);
+            payee_message.setText("$" + amount + " sent successfully to " + receiver);
             transactions_listView.setItems(Model.getInstance().getTransactionsList(4));
             updateIncomeAndExpenses(transaction);
 
@@ -114,11 +116,19 @@ public class DashBoardController implements Initializable {
     private boolean checkIfLegal() {
         try {
             if (payee_address.getText() != null && payee_money.getText() != null) {
-
-                if (Model.getInstance().searchClient(payee_address.getText()).size() == 1) {
+                String inputAddress = payee_address.getText().trim();
+                ObservableList<Client> results = Model.getInstance().searchClient(inputAddress);
+                if (results.size() == 1) {
+                    Client receiverClient = results.get(0);
+                    String receiverAddress = receiverClient.clientIDProperty().get();
+                    if (Model.getInstance().getDatabaseDriver().getCheckingAccountData(receiverAddress) == null) {
+                        return false;
+                    }
                     double amount = Double.parseDouble(payee_money.getText());
                     if (amount > 0 && client.checkingAccountProperty().get().balanceProperty().getValue() >= amount) {
-                        return true;
+                        if (!receiverAddress.equalsIgnoreCase(client.clientIDProperty().get())) {
+                            return true;
+                        }
                     }
                 }
             }
