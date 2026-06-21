@@ -1,0 +1,4 @@
+--patch-module
+com.arthsetu=_
+--add-reads
+com.arthsetu=ALL-UNNAMED
