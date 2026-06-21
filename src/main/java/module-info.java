@@ -1,4 +1,4 @@
-module org.zeros.maze_bank_final_project {
+module com.arthsetu {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
@@ -8,12 +8,16 @@ module org.zeros.maze_bank_final_project {
     requires eu.hansolo.tilesfx;
     requires de.jensd.fx.glyphs.fontawesome;
     requires org.xerial.sqlitejdbc;
+    requires spring.boot.autoconfigure;
 
-    opens org.zeros.maze_bank_final_project to javafx.fxml;
-    exports org.zeros.maze_bank_final_project;
-    exports org.zeros.maze_bank_final_project.Controllers.Admin;
-    exports org.zeros.maze_bank_final_project.Controllers.Client;
-    exports org.zeros.maze_bank_final_project.Controllers;
-    exports org.zeros.maze_bank_final_project.Models;
-    exports org.zeros.maze_bank_final_project.Views;
+    opens com.arthsetu to javafx.fxml;
+    opens com.arthsetu.Controllers to javafx.fxml;
+    opens com.arthsetu.Controllers.Admin to javafx.fxml;
+    opens com.arthsetu.Controllers.Client to javafx.fxml;
+    exports com.arthsetu;
+    exports com.arthsetu.Controllers;
+    exports com.arthsetu.Controllers.Admin;
+    exports com.arthsetu.Controllers.Client;
+    exports com.arthsetu.Models;
+    exports com.arthsetu.Viwes;
 }
